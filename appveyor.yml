@@ -1,4 +1,4 @@
-version: 1.0.{build}
+version: 2110.{build}
 pull_requests:
   do_not_increment_build_number: true
 skip_tags: true
@@ -7,6 +7,8 @@ environment:
     secure: HG+gRzannxVOGKIAOMWiCXyQv0NWOKR2iSBEP2vceWY=
   Module: J81.TestModule
   Source: J81.TestModule
+  GitHubKey:
+    secure: 6Dtz28d/0iiiZMdamhTBoN+wtOQoF2t8BIbLx0jwduyOW1bEe8NNFaDwe9bM89Y3
 install:
 - ps: . .\ci\Install.ps1
 build_script:
