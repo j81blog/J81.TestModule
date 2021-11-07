@@ -9,12 +9,14 @@ if (Test-Path 'env:APPVEYOR_BUILD_FOLDER') {
     # AppVeyor Testing
     $projectRoot = Resolve-Path -Path $env:APPVEYOR_BUILD_FOLDER
     $module = $env:Module
+    $source = $env:Source
 } else {
     # Local Testing 
     $projectRoot = $ProjectRoot = ( Resolve-Path -Path ( Split-Path -Parent -Path $PSScriptRoot ) ).Path
     $module = Split-Path -Path $projectRoot -Leaf
+    $source = $module
 }
-$moduleParent = Join-Path -Path $projectRoot -ChildPath $module
+$moduleParent = Join-Path -Path $projectRoot -ChildPath $source
 $manifestPath = Join-Path -Path $moduleParent -ChildPath "$module.psd1"
 $modulePath = Join-Path -Path $moduleParent -ChildPath "$module.psm1"
 $ProgressPreference = [System.Management.Automation.ActionPreference]::SilentlyContinue

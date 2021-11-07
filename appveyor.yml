@@ -7,9 +7,12 @@ environment:
     secure: HG+gRzannxVOGKIAOMWiCXyQv0NWOKR2iSBEP2vceWY=
   Module: J81.TestModule
   Source: J81.TestModule
+install:
+- ps: . .\ci\Install.ps1
 build: off
 test_script:
 - ps: . .\ci\Tests.ps1
+- ps: . .\ci\GitHub.ps1
 
 skip_commits:
   message: /AppVeyor validate.*|Merge branch 'main' of.*|Update docs.*/
