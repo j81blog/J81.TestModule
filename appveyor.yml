@@ -1,0 +1,19 @@
+version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+skip_tags: true
+environment:
+  NuGetApiKey:
+    secure: HG+gRzannxVOGKIAOMWiCXyQv0NWOKR2iSBEP2vceWY=
+  Module: J81.TestModule
+  Source: J81.TestModule
+build: off
+test_script:
+- ps: . .\ci\Tests.ps1
+
+skip_commits:
+  message: /AppVeyor validate.*|Merge branch 'main' of.*|Update docs.*/
+
+only_commits:
+  files:
+    - J81.TestModule/**/*
