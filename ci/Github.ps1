@@ -26,6 +26,6 @@ Write-Host ""
 Write-Host "We have $($GitHubRate.rate.remaining) requests left to the GitHub API in this window."
 $ResetWindow = [System.TimeZone]::CurrentTimeZone.ToLocalTime(([System.DateTime]'1/1/1970').AddSeconds($GitHubRate.rate.reset))
 $TargetTZone = [System.TimeZoneInfo]::GetSystemTimeZones() | Where-Object { $_.Id -match "W. Europe Standard Time*" } | Select-Object -First 1
-$MelbourneTime = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId(($ResetWindow), $TargetTZone.Id)
-Write-Host "GitHub rate limit window resets at: $($MelbourneTime.ToShortDateString()) $($MelbourneTime.ToShortTimeString()) AEST."
+$TimeZoneInfo = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId(($ResetWindow), $TargetTZone.Id)
+Write-Host "GitHub rate limit window resets at: $($TimeZoneInfo.ToShortDateString()) $($TimeZoneInfo.ToShortTimeString()), W. Europe Standard Time."
 Write-Host ""

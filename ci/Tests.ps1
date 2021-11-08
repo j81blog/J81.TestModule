@@ -12,6 +12,7 @@ if (Test-Path 'env:APPVEYOR_BUILD_FOLDER') {
     $source = $env:Source
 } else {
     # Local Testing 
+    Import-Module Pester
     $projectRoot = $ProjectRoot = ( Resolve-Path -Path ( Split-Path -Parent -Path $PSScriptRoot ) ).Path
     $module = Split-Path -Path $projectRoot -Leaf
     $source = $module
@@ -27,14 +28,14 @@ if (Get-Variable -Name projectRoot -ErrorAction "SilentlyContinue") {
     # Configure the test environment
     $testsPath = Join-Path -Path $projectRoot -ChildPath "tests"
     $testOutput = Join-Path -Path $projectRoot -ChildPath "TestsResults.xml"
-    $testConfig = [PesterConfiguration]@{
+    $testConfig = New-PesterConfiguration -Hashtable @{
         Run        = @{
             Path     = $testsPath
             PassThru = $True
         }
         TestResult = @{
             OutputFormat = "NUnitXml"
-            OutputFile   = $testOutput
+            OutputPath   = $testOutput
         }
         Output     = @{
             Verbosity = "Detailed"

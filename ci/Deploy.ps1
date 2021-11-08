@@ -90,6 +90,8 @@ Else {
             # Configure the git environment
             git config --global credential.helper store
             Add-Content -Path (Join-Path -Path $env:USERPROFILE -ChildPath ".git-credentials") -Value "https://$($env:GitHubKey):x-oauth-basic@github.com`n"
+            Write-Host "APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL: $($env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL)"
+            Write-Host "APPVEYOR_REPO_COMMIT_AUTHOR: $($env:APPVEYOR_REPO_COMMIT_AUTHOR)"
             git config --global user.email "$($env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL)"
             git config --global user.name "$($env:APPVEYOR_REPO_COMMIT_AUTHOR)"
             git config --global core.autocrlf true
