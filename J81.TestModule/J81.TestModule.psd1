@@ -12,7 +12,7 @@
 RootModule = 'J81.TestModule.psm1'
 
 # Version number of this module.
-ModuleVersion = '2111.7'
+ModuleVersion = '2111.8'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
