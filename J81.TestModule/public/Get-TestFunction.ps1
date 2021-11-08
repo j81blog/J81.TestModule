@@ -6,6 +6,7 @@ function Get-TestFunction {
         Example function 
     #>
     [CmdletBinding()]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingWriteHost", "")]
     param (
         
     )
