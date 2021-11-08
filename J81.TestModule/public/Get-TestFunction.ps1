@@ -1,9 +1,9 @@
 function Get-TestFunction {
     <#
         .SYNOPSIS
-        Example function
+        Example function 
         .DESCRIPTION
-        Example function
+        Example function 
     #>
     [CmdletBinding()]
     param (
