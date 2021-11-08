@@ -2,6 +2,7 @@ version: 2110.{build}
 pull_requests:
   do_not_increment_build_number: true
 skip_tags: true
+image: Visual Studio 2019
 environment:
   NuGetApiKey:
     secure: HG+gRzannxVOGKIAOMWiCXyQv0NWOKR2iSBEP2vceWY=
@@ -17,6 +18,8 @@ build_script:
 test_script:
 - ps: . .\ci\Tests.ps1
 - ps: . .\ci\GitHub.ps1
+deploy_script:
+- ps: . .\ci\Deploy.ps1
 
 skip_commits:
   message: /AppVeyor validate.*|Merge branch 'main' of.*|Update docs.*/

@@ -2,7 +2,6 @@ function Get-TestFunction {
     <#
         .SYNOPSIS
         Example function
-
         .DESCRIPTION
         Example function
     #>
