@@ -13,18 +13,15 @@ $WarningPreference = [System.Management.Automation.ActionPreference]::Continue
 # Environmental Variables Guide: https://www.appveyor.com/docs/environment-variables/
 If ($env:APPVEYOR_REPO_BRANCH -ne 'main') {
     Write-Warning -Message "Skipping version increment and push for branch $env:APPVEYOR_REPO_BRANCH"
-}
-ElseIf ($env:APPVEYOR_PULL_REQUEST_NUMBER -gt 0) {
+} ElseIf ($env:APPVEYOR_PULL_REQUEST_NUMBER -gt 0) {
     Write-Warning -Message "Skipping version increment and push for pull request #$env:APPVEYOR_PULL_REQUEST_NUMBER"
-}
-Else {
+} Else {
 
     If (Test-Path 'env:APPVEYOR_BUILD_FOLDER') {
         # AppVeyor Testing
         $projectRoot = Resolve-Path -Path $env:APPVEYOR_BUILD_FOLDER
         $module = $env:Module
-    }
-    Else {
+    } Else {
         # Local Testing 
         $projectRoot = Resolve-Path -Path (((Get-Item (Split-Path -Parent -Path $MyInvocation.MyCommand.Definition)).Parent).FullName)
         $module = Split-Path -Path $projectRoot -Leaf
@@ -68,13 +65,11 @@ Else {
             $content = Get-Content -Path $changeLog
             If ($content -match $replaceString) {
                 $content -replace $replaceString, "## $newVersion" | Set-Content -Path $changeLog
-            }
-            Else {
+            } Else {
                 Write-Host "No match in $changeLog for '## VERSION'. Manual update of CHANGELOG required." -ForegroundColor Cyan
             }
 
-        }
-        Catch {
+        } Catch {
             Throw $_
         }
 
@@ -104,26 +99,23 @@ Else {
             git commit -s -m "AppVeyor validate: $newVersion"
             Invoke-Process -FilePath "git" -ArgumentList "push origin main"
             Write-Host "$module $newVersion pushed to GitHub." -ForegroundColor "Cyan"
-        }
-        Catch {
+        } Catch {
             # Sad panda; it broke
             Write-Warning -Message "Push to GitHub failed."
             Throw $_
         }
 
-
         # Publish the new version to the PowerShell Gallery
         Try {
             # Build a splat containing the required details and make sure to Stop for errors which will trigger the catch
-            $PM = @{
+            $Params = @{
                 Path        = $moduleParent
                 NuGetApiKey = $env:NuGetApiKey
                 ErrorAction = "Stop"
             }
-            #==>Publish-Module @PM
+            #==>Publish-Module @Params
             Write-Host "$module $newVersion published to the PowerShell Gallery." -ForegroundColor "Cyan"
-        }
-        Catch {
+        } Catch {
             # Sad panda; it broke
             Write-Warning -Message "Publishing $module $newVersion to the PowerShell Gallery failed."
             Throw $_

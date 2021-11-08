@@ -35,7 +35,7 @@ if (Get-Variable -Name projectRoot -ErrorAction "SilentlyContinue") {
             PassThru = $True
         }
         TestResult = @{
-            Enabled = $true
+            Enabled      = $true
             OutputFormat = "NUnitXml"
             OutputPath   = $testOutput
         }
@@ -43,23 +43,6 @@ if (Get-Variable -Name projectRoot -ErrorAction "SilentlyContinue") {
             Verbosity = "Detailed"
         }
     }
-
-<#
-    $testConfig=New-PesterConfiguration
-    $testConfig.Run.Path=$testsPath
-    $testConfig.Run.PassThru=$true
-    #$testConfig.Filter.Tag=$Tag
-    #$testConfig.Filter.ExcludeTag=$ExcludeTag
-    
-    $testConfig.TestResult.Enabled=$true
-    $testConfig.TestResult.OutputFormat="NUnitXml"
-    $testConfig.TestResult.OutputPath=$testOutput
-    
-    #$pesterConfiguration.Output.Verbosity="Detailed"
-    # If you want full log uncomment
-    $testConfig.Output.Verbosity="Diagnostic"
-
-#>
 
     Write-Host "Tests path:      $testsPath."
     Write-Host "Output path:     $testOutput."
