@@ -4,14 +4,14 @@ on: push
 jobs:
   pester-test:
     name: Pester test
-    runs-on: ubuntu-latest
+    runs-on: windows-2022
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: Install requirements
         shell: pwsh
         run: |
-          .\ci\Install.ps1
+          ls env:\; .\ci\Install.ps1
       - name: Perform a Pester test from the Tests.ps1 file
         shell: pwsh
         run: |
