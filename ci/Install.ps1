@@ -48,7 +48,7 @@ Import-Module $manifestPath -Force
 
 # Install packages
 
-if (-Not ($packageProvider = Get-PackageProvider -ListAvailable | Where-Object {$_.Name -like "Nuget" -and $_.Version -gt [Version]"2.8.5.208"})) {
+if (-Not ($packageProvider = Get-PackageProvider -ListAvailable | Where-Object {$_.Name -like "Nuget" -and $_.Version -ge $([Version]"2.8.5.208")})) {
     Install-PackageProvider -Name NuGet -MinimumVersion "2.8.5.208"
 }
 
