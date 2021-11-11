@@ -59,16 +59,17 @@ If ($env:APPVEYOR_REPO_BRANCH -ne 'main') {
             (Get-Content -Path $yml) -replace $replaceString, $versionString | Set-Content -Path $yml
 
             # Update version number for latest release in CHANGELOG.md
-            #$changeLog = Join-Path -Path $env:APPVEYOR_BUILD_FOLDER -ChildPath "CHANGELOG.md"
-            $changeLog = [System.IO.Path]::Combine($env:APPVEYOR_BUILD_FOLDER, "docs", "changelog.md")
+            $changeLog = Join-Path -Path $env:APPVEYOR_BUILD_FOLDER -ChildPath "CHANGELOG.md"
+            #$changeLog = [System.IO.Path]::Combine($env:APPVEYOR_BUILD_FOLDER, "docs", "changelog.md")
             $replaceString = "^## VERSION$"
-            $content = Get-Content -Path $changeLog
-            If ($content -match $replaceString) {
-                $content -replace $replaceString, "## $newVersion" | Set-Content -Path $changeLog
-            } Else {
-                Write-Host "No match in $changeLog for '## VERSION'. Manual update of CHANGELOG required." -ForegroundColor Cyan
+            if (Test-Path -Path $changeLog) {
+                $content = Get-Content -Path $changeLog
+                if ($content -match $replaceString) {
+                    $content -replace $replaceString, "## $newVersion" | Set-Content -Path $changeLog
+                } else {
+                    Write-Host "No match in $changeLog for '## VERSION'. Manual update of CHANGELOG required." -ForegroundColor Cyan
+                }
             }
-
         } Catch {
             Throw $_
         }

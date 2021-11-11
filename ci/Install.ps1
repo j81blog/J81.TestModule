@@ -39,7 +39,11 @@ Write-Host "Importing module." -ForegroundColor "Cyan"
 Import-Module $manifestPath -Force
 
 # Install packages
-Install-PackageProvider -Name NuGet -MinimumVersion "2.8.5.208"
+
+if (-Not ($packageProvider = Get-PackageProvider -ListAvailable | Where-Object {$_.Name -like "Nuget" -and $_.Version -gt [Version]"2.8.5.208"})) {
+    Install-PackageProvider -Name NuGet -MinimumVersion "2.8.5.208"
+}
+
 If (Get-PSRepository -Name PSGallery | Where-Object { $_.InstallationPolicy -ne "Trusted" }) {
     Write-Host "Trust repository: PSGallery." -ForegroundColor Cyan
     Set-PSRepository -Name PSGallery -InstallationPolicy Trusted

@@ -4,12 +4,12 @@ pull_requests:
 skip_tags: true
 image: Visual Studio 2019
 environment:
-  NuGetApiKey:
-    secure: HG+gRzannxVOGKIAOMWiCXyQv0NWOKR2iSBEP2vceWY=
   Module: J81.TestModule
   Source: J81.TestModule
   GitHubKey:
     secure: 6Dtz28d/0iiiZMdamhTBoN+wtOQoF2t8BIbLx0jwduyOW1bEe8NNFaDwe9bM89Y3
+  NuGetApiKey:
+    secure: 6DgZM3F2BuyfG68fhIJW/Glym1Ul6SVYB0RhaxiQ6WXB2wN9g7lhlANMDDcKR75c
 install:
 - ps: . .\ci\Install.ps1
 build_script:
