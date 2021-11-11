@@ -58,9 +58,14 @@ If (Get-PSRepository -Name PSGallery | Where-Object { $_.InstallationPolicy -ne 
 }
 $Modules = @("Pester", "PSScriptAnalyzer", "posh-git", "MarkdownPS")
 ForEach ($Module in $Modules) {
+    Write-Host "Checking module $Module." -ForegroundColor Cyan
     If ([System.Version]((Find-Module -Name $Module | Sort-Object -Property Version -Descending | Select-Object -First 1).Version) -gt [System.Version](Get-Module -Name $Module -ListAvailable | Sort-Object -Property Version -Descending | Select-Object -First 1).Version) {
-        Write-Host "Checking module $Module." -ForegroundColor Cyan
-        Install-Module -Name $Module -SkipPublisherCheck -Force
+        Write-Host "Installing module $Module." -ForegroundColor Cyan
+        Install-Module -Name $Module -SkipPublisherCheck -Force -Verbose
+        Write-Host "Loading $Module" -ForegroundColor Cyan
+        Import-Module -Name $Module -Force
+    } else {
+        Write-Host "Loading $Module" -ForegroundColor Cyan
         Import-Module -Name $Module -Force
     }
 }
