@@ -6,13 +6,21 @@
 param ()
 
 # Set variables
-if (Test-Path 'env:APPVEYOR_BUILD_FOLDER') {
+if (Test-Path -Path 'env:APPVEYOR_BUILD_FOLDER') {
     # AppVeyor Testing
+    $workspace = "APPVEYOR"
     $projectRoot = Resolve-Path -Path $env:APPVEYOR_BUILD_FOLDER
     $module = $env:Module
     $source = $env:Source
-} else {
+} elseif (Test-Path -Path 'env:GITHUB_WORKSPACE') {
+    # Github Testing
+    $workspace = "GITHUB"
+    $projectRoot = Resolve-Path -Path $env:GITHUB_WORKSPACE
+    $module = Split-Path -Path $projectRoot -Leaf
+    $source = $module
+}else {
     # Local Testing 
+    $workspace = "LOCAL"
     $projectRoot = $ProjectRoot = ( Resolve-Path -Path ( Split-Path -Parent -Path $PSScriptRoot ) ).Path
     $module = Split-Path -Path $projectRoot -Leaf
     $source = $module
